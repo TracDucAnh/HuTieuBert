@@ -8,7 +8,7 @@ Visualize and compare attention heatmaps across layers of **HuTieuBERT** with an
 
 ### 1. Clone the repository
 ```bash
-git https://github.com/TracDucAnh/HuTieuBert.git
+git clone https://github.com/TracDucAnh/HuTieuBert.git
 cd HuTieuBert
 ```
 
