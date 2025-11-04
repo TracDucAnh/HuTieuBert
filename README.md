@@ -45,3 +45,12 @@ In observe_changes.py
 layers_to_visualize = [5]   # <-- config layer bias list
 heads = list(range(12))        # apply bias to all heads
 ```
+
+## To modify how strong bias matrix effect the overall attention score
+In observe_changes.py
+```python
+alpha_config = 0.5 # <-- strengthen attention scores inside a compound word 
+beta_config = -0.25 # <-- weelen attention scores within compounds
+gamma_config = 0.0 # <-- bias single token
+delta_config = 0.0 # <-- bias self token
+```
