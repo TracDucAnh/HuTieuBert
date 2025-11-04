@@ -26,8 +26,13 @@ output = tokenizer(text, return_tensors="pt")
 # =============================================================================
 config = RobertaConfig.from_pretrained("vinai/phobert-base")
 
-layers_to_visualize = [5]   # <-- tùy chỉnh danh sách layer ở đây
+layers_to_visualize = [10]   # <-- tùy chỉnh danh sách layer ở đây
 heads = list(range(12))        # dùng all heads
+
+alpha_config = 0.5
+beta_config = -0.25
+gamma_config = 0.0
+delta_config = 0.0
 
 target_heads_with_bias = {layer: heads for layer in layers_to_visualize}
 
@@ -50,10 +55,10 @@ model_bias = MorphemeAwareRobertaModel.from_pretrained(
     "vinai/phobert-base",
     config=config,
     target_heads=target_heads_with_bias,
-    alpha=0.1,
-    beta=-0.05,
-    gamma=0.0,
-    delta=0.0,
+    alpha=alpha_config,
+    beta=beta_config,
+    gamma=gamma_config,
+    delta=delta_config,
     attn_implementation="eager"
 )
 model_bias.eval()
@@ -73,10 +78,10 @@ model_no_bias = MorphemeAwareRobertaModel.from_pretrained(
     "vinai/phobert-base",
     config=config,
     target_heads=None,
-    alpha=0.1,
-    beta=-0.05,
-    gamma=0.0,
-    delta=0.0,
+    alpha=alpha_config,
+    beta=beta_config,
+    gamma=gamma_config,
+    delta=delta_config,
     attn_implementation="eager"
 )
 model_no_bias.eval()
@@ -172,4 +177,43 @@ for layer in layers_to_visualize:
 
 print("="*70)
 print(f"📁 Saved figure at: {save_path}")
+print("="*70)
+
+
+print("="*70)
+print("📊 EXTENDED ATTENTION ANALYSIS PER LAYER")
+print("="*70)
+
+for layer in layers_to_visualize:
+    bias_mat = attentions_bias[layer][0].mean(dim=0).cpu().numpy()
+    nobias_mat = attentions_no_bias[layer][0].mean(dim=0).cpu().numpy()
+    diff = bias_mat - nobias_mat
+
+    # === Phân tích cơ bản, không dùng scipy ===
+    mean_bias = bias_mat.mean()
+    mean_nobias = nobias_mat.mean()
+    mean_diff = diff.mean()
+    abs_diff_mean = np.abs(diff).mean()
+    std_diff = diff.std()
+
+    # Tương quan thủ công: dùng công thức Pearson đơn giản
+    flat_bias = bias_mat.flatten()
+    flat_nobias = nobias_mat.flatten()
+    corr = np.corrcoef(flat_bias, flat_nobias)[0, 1]
+
+    # Tỷ lệ phần tử thay đổi dấu (attention đảo hướng)
+    sign_change_ratio = np.mean(np.sign(flat_bias) != np.sign(flat_nobias))
+
+    # In kết quả
+    print(f"\n📍 Layer {layer}")
+    print(f"  • Mean (Bias)     = {mean_bias:.6f}")
+    print(f"  • Mean (No Bias)  = {mean_nobias:.6f}")
+    print(f"  • Δ Mean          = {mean_diff:+.6f}")
+    print(f"  • |Δ| Mean        = {abs_diff_mean:.6f}")
+    print(f"  • Std(Δ)          = {std_diff:.6f}")
+    print(f"  • Corr(Bias,NoBias)= {corr:.6f}")
+    print(f"  • Sign change %   = {sign_change_ratio*100:.2f}%")
+
+print("="*70)
+print("✅ Basic analysis done.")
 print("="*70)
