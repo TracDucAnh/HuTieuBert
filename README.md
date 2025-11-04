@@ -54,3 +54,6 @@ beta_config = -0.25 # <-- weaken attention scores within compounds
 gamma_config = 0.0 # <-- bias single token
 delta_config = 0.0 # <-- bias self token
 ```
+
+## To view the different, go to figs/ - which contains visualization images
+![applied bias to head 5, 6, 7](figs/multi_layer_attention_5-6-7_all.png)

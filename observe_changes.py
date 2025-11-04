@@ -26,7 +26,7 @@ output = tokenizer(text, return_tensors="pt")
 # =============================================================================
 config = RobertaConfig.from_pretrained("vinai/phobert-base")
 
-layers_to_visualize = [10]   # <-- tùy chỉnh danh sách layer ở đây
+layers_to_visualize = [5, 6, 7]   # <-- tùy chỉnh danh sách layer ở đây
 heads = list(range(12))        # dùng all heads
 
 alpha_config = 0.5
