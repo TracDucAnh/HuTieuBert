@@ -39,7 +39,7 @@ pip install -r requirements.txt
 python observe_changes.py
 ```
 
-## To modify visualization config
+## To modify visualization configurations
 In observe_changes.py
 ```python
 layers_to_visualize = [5]   # <-- config layer bias list
