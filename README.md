@@ -57,3 +57,21 @@ delta_config = 0.0 # <-- bias self token
 
 ## To view the different, go to figs/ - which contains visualization images
 ![applied bias to head 5, 6, 7](figs/multi_layer_attention_5-6-7_all.png)
+
+---
+
+### Acknowledgement
+This work makes use of **VnCoreNLP** — a Vietnamese natural language processing toolkit.
+
+Copyright (C) 2018-2019 VnCoreNLP  
+This program is free software: you can redistribute it and/or modify  
+it under the terms of the GNU General Public License as published by  
+the Free Software Foundation, either version 3 of the License, or  
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,  
+but **WITHOUT ANY WARRANTY**; without even the implied warranty of  
+**MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.**  
+See the [GNU General Public License](https://www.gnu.org/licenses/) for more details.
+
+Repository: [https://github.com/vncorenlp/VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP)
