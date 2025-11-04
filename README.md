@@ -50,7 +50,7 @@ heads = list(range(12))        # apply bias to all heads
 In observe_changes.py
 ```python
 alpha_config = 0.5 # <-- strengthen attention scores inside a compound word 
-beta_config = -0.25 # <-- weaken attention scores within compounds
+beta_config = -0.25 # <-- weaken attention scores among compounds
 gamma_config = 0.0 # <-- bias single token
 delta_config = 0.0 # <-- bias self token
 ```
