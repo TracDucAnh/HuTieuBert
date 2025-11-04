@@ -46,7 +46,7 @@ layers_to_visualize = [5]   # <-- config layer bias list
 heads = list(range(12))        # apply bias to all heads
 ```
 
-## To modify how strong bias matrix effect the overall attention score
+## To modify how strong bias matrix effect to the overall attention scores
 In observe_changes.py
 ```python
 alpha_config = 0.5 # <-- strengthen attention scores inside a compound word 
